@@ -1,6 +1,6 @@
 # my_card_flutter
 
-Flutter pfoject for my card challenge
+Flutter project for my card challenge
 
 ## Getting Started
 
