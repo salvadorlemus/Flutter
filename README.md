@@ -1,6 +1,6 @@
 # base
 
-A new Flutter project.
+Flutter project to simulate a dice roll using statefull widgets
 
 ## Getting Started
 
