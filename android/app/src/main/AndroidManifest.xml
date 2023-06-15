@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gunstelgames.my_card_flutter">
    <application
-        android:label="my_card_flutter"
+        android:label="My Card"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
