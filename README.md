@@ -1,6 +1,6 @@
 # base
 
-A new Flutter project.
+Container for various branches of fluter projects.
 
 ## Getting Started
 
