@@ -29,17 +29,19 @@ class DiceePage extends StatelessWidget {
             // child  : Image ( image : AssetImage('images/dice1.png') ),
             // we use the shortcut
             // child : Image.asset('images/dice1.png')
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Image.asset('images/dice1.png'),
-            ),
+            child: TextButton(
+              onPressed: (){
+                print('Left button got pressed');
+              },
+              child: Image.asset('images/dice1.png'),),
           ),
           Expanded(
             // Create a image asset
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Image.asset('images/dice2.png'),
-            ),
+            child: TextButton(
+                onPressed: (){
+                  print('Right button got pressed');
+                },
+                child: Image.asset('images/dice2.png')),
           ),
         ],
       ),
