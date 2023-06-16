@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'QuizBrain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuizBrain quizBrain = QuizBrain();
 
@@ -31,17 +32,39 @@ class _QuizPageState extends State<QuizPage> {
 
   List <Widget> scoreKeeper = [];
 
-  void CheckUserAnswer(bool userPickedAnswer){
-
+  void CheckUserAnswer(bool userPickedAnswer) {
     bool correctAnswer = quizBrain.getQuestionAnswer();
 
     setState(() {
-      if(userPickedAnswer == correctAnswer){
-        scoreKeeper.add(Icon(Icons.check, color: Colors.green));
-      } else {
-        scoreKeeper.add(Icon(Icons.close, color: Colors.red));
+      //TODO: Step 4 - Use IF/ELSE to check if we've reached the end of the quiz. If so,
+      //On the next line, you can also use if (quizBrain.isFinished()) {}, it does the same thing.
+      if (quizBrain.isFinished() == true) {
+        //Modified for our purposes:
+        Alert(
+          context: context,
+          title: 'Finished!',
+          desc: 'You\'ve reached the end of the quiz.',
+        ).show();
+
+        quizBrain.reset();
+
+        scoreKeeper = [];
       }
-      quizBrain.nextQuestion();
+
+      else {
+        if (userPickedAnswer == correctAnswer) {
+          scoreKeeper.add(Icon(
+            Icons.check,
+            color: Colors.green,
+          ));
+        } else {
+          scoreKeeper.add(Icon(
+            Icons.close,
+            color: Colors.red,
+          ));
+        }
+        quizBrain.nextQuestion();
+      }
     });
   }
 
