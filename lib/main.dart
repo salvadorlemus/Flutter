@@ -133,6 +133,9 @@ class _QuizPageState extends State<QuizPage> {
         ),
         Row(
           children: scoreKeeper,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
         )
       ],
     );
