@@ -3,6 +3,10 @@
 import 'package:flutter/material.dart';
 import 'ReusableCard.dart';
 
+const _hexCardBackgroundColour = 0XFF1D1E33;
+const _hexButtonCalculateBMIBackgroundColour = 0xFFEB1555;
+const _buttonCalculateBMIHeight = 80.0;
+
 class InputPage extends StatefulWidget {
   @override
   _InputPageState createState() => _InputPageState();
@@ -20,30 +24,48 @@ class _InputPageState extends State<InputPage> {
         children: <Widget>[
           Expanded(child: Row(
             children: const <Widget>[
-              Expanded(child: ReusableCard(colour: Color(0XFF1D1E33),),
+              Expanded(child:
+              ReusableCard(
+                colour: Color(_hexCardBackgroundColour),
+              ),
             ),
-              Expanded(child: ReusableCard(colour: Color(0XFF1D1E33),),
+              Expanded(child:
+              ReusableCard(
+                colour: Color(_hexCardBackgroundColour),
+              ),
             ),
             ],
-          ),
-          ),
+          )),
           Expanded(child: Row(
             children: const <Widget>[
-              Expanded(child: ReusableCard(colour: Color(0XFF1D1E33),),
+              Expanded(child:
+              ReusableCard(
+                colour: Color(_hexCardBackgroundColour),
+              ),
               ),
             ],
-          ),
-          ),
+          )),
           Expanded(child: Row(
             children: const <Widget>[
-              Expanded(child: ReusableCard(colour: Color(0XFF1D1E33),),
+              Expanded(
+                child: ReusableCard(
+                  colour: Color(_hexCardBackgroundColour),
+                ),
               ),
-              Expanded(child: ReusableCard(colour: Color(0XFF1D1E33),),
+              Expanded(
+                child: ReusableCard(
+                  colour: Color(_hexCardBackgroundColour),
+                ),
               ),
             ],
+          )),
+          Container(
+            color: const Color(_hexButtonCalculateBMIBackgroundColour),
+            margin: const EdgeInsets.only(top: 10.0),
+            width: double.infinity,
+            height: _buttonCalculateBMIHeight,
           ),
-          )
-        ],
+        ]
       ),
     );
   }
