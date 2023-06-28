@@ -11,18 +11,21 @@ const _hexCardBackgroundInactiveColour = 0XFF111328;
 const _hexButtonCalculateBMIBackgroundColour = 0xFFEB1555;
 const _buttonCalculateBMIHeight = 80.0;
 
+enum Gender { MALE, FEMALE }
+
 class InputPage extends StatefulWidget {
   @override
   _InputPageState createState() => _InputPageState();
 }
 
 class _InputPageState extends State<InputPage> {
+  Gender gender = Gender.MALE;
   Color maleCardColor = Color(_hexCardBackgroundInactiveColour);
   Color femaleCardColor = Color(_hexCardBackgroundInactiveColour);
 
   // 1 = male 2 = female
-  void UpdateColor(int gender) {
-    if (gender == 1) {
+  void UpdateColor(Gender selectedGender) {
+    if (selectedGender == Gender.MALE) {
       maleCardColor = Color(_hexCardBackgroundActiveColour);
       femaleCardColor = Color(_hexCardBackgroundInactiveColour);
     } else {
@@ -46,7 +49,7 @@ class _InputPageState extends State<InputPage> {
               child: GestureDetector(
                 onTap: () => {
                   setState(() {
-                    UpdateColor(1);
+                    UpdateColor(Gender.MALE);
                   }),
                 },
                 child: ReusableCard(
@@ -60,7 +63,7 @@ class _InputPageState extends State<InputPage> {
               child: GestureDetector(
                 onTap: () => {
                   setState(() {
-                    UpdateColor(2);
+                    UpdateColor(Gender.FEMALE);
                   }),
                 },
                 child: ReusableCard(
