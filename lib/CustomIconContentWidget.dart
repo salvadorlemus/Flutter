@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
+import 'Constants.dart';
 
 class CustomIconContentWidget extends StatelessWidget {
-  static const _hexTextColour = 0XFF8D8E98;
   final String label;
   final IconData icon;
-
-  final labelTextStyle = const TextStyle(
-    fontSize: 18.0,
-    color: Color(_hexTextColour),
-  );
 
   const CustomIconContentWidget(
       {super.key, required this.label, required this.icon});
