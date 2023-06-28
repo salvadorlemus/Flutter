@@ -8,6 +8,8 @@ const buttonCalculateBMIHeight = 80.0;
 
 const sliderActiveColor = Color(0xFFEB1555);
 const sliderInactiveColor = Color(0xFF8D8E98);
+const sliderThumbColor = Color(0xFFEB1555);
+const sliderOverlayColor = Color(0x29EB1555);
 
 const labelTextStyle = TextStyle(
   fontSize: 18.0,
