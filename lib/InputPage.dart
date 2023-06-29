@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'ReusableCard.dart';
 import 'CustomIconContentWidget.dart';
 import 'Constants.dart';
+import 'RoundIconButton.dart';
 
 enum Gender { MALE, FEMALE, UNKNOW }
 
@@ -19,6 +20,8 @@ class _InputPageState extends State<InputPage> {
   Color activeCardColor = hexCardBackgroundActiveColour;
   Color inactiveCardColor = hexCardBackgroundInactiveColour;
   int height = 180;
+  int weight = 60;
+  int age = 19;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class _InputPageState extends State<InputPage> {
             children: <Widget>[
               Expanded(
                 child: ReusableCard(
-                  onPress: () {
+                  onPressed: () {
                     setState(() {
                       gender = Gender.MALE;
                     });
@@ -47,7 +50,7 @@ class _InputPageState extends State<InputPage> {
               ),
               Expanded(
                 child: ReusableCard(
-                  onPress: () {
+                  onPressed: () {
                     setState(() {
                       gender = Gender.FEMALE;
                     });
@@ -84,7 +87,7 @@ class _InputPageState extends State<InputPage> {
                             height.toString(),
                             style: numberTextStyle,
                           ),
-                          Text(
+                          const Text(
                             'cm',
                             style: labelTextStyle,
                           ),
@@ -127,15 +130,79 @@ class _InputPageState extends State<InputPage> {
             children: <Widget>[
               Expanded(
                 child: ReusableCard(
-                  onPress: () => {},
                   colour: hexCardBackgroundActiveColour,
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const Text('WEIGHT', style: labelTextStyle),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        // for the kg CrossAxisAlignment.baseline
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Text(weight.toString(), style: numberTextStyle),
+                          const Text('kg', style: labelTextStyle),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          RoundIconButton(
+                            icon: FontAwesomeIcons.minus,
+                            onPressed: () {
+                              setState(() {
+                                weight--;
+                              });
+                            },
+                          ),
+                          const SizedBox(width: 10.0),
+                          RoundIconButton(
+                            icon: FontAwesomeIcons.plus,
+                            onPressed: () {
+                              setState(() {
+                                weight++;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Expanded(
                 child: ReusableCard(
-                  onPress: () => {},
-                  colour: hexCardBackgroundActiveColour,
-                ),
+                    colour: hexCardBackgroundActiveColour,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        const Text('AGE', style: labelTextStyle),
+                        Text(age.toString(), style: numberTextStyle),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPressed: () {
+                                setState(() {
+                                  age--;
+                                });
+                              },
+                            ),
+                            const SizedBox(width: 10.0),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(() {
+                                  age++;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    )),
               ),
             ],
           ),
@@ -145,6 +212,13 @@ class _InputPageState extends State<InputPage> {
           margin: const EdgeInsets.only(top: 10.0),
           width: double.infinity,
           height: buttonCalculateBMIHeight,
+          child: TextButton(
+            onPressed: () {},
+            child: const Text(
+              'CALCULATE',
+              style: numberTextStyle,
+            ),
+          ),
         ),
       ]),
     );

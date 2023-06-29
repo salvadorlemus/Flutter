@@ -13,14 +13,15 @@ class ReusableCard extends StatelessWidget {
   // I need to use VoidCallback instead of Func since I can pass a null void Func
   // and prevent this error The argument type 'Function' can't be assigned to the parameter type 'void Function()?'
   // https://stackoverflow.com/questions/64484113/the-argument-type-function-cant-be-assigned-to-the-parameter-type-void-funct
-  final VoidCallback? onPress;
+  final VoidCallback? onPressed;
 
-  ReusableCard({super.key, required this.colour, this.cardChild, this.onPress});
+  ReusableCard(
+      {super.key, required this.colour, this.cardChild, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPress,
+      onTap: onPressed,
       child: Container(
         margin: const EdgeInsets.all(15.0),
         decoration: BoxDecoration(
