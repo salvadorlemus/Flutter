@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'ResultsPage.dart';
 import 'ReusableCard.dart';
 import 'CustomIconContentWidget.dart';
 import 'Constants.dart';
@@ -207,17 +208,21 @@ class _InputPageState extends State<InputPage> {
             ],
           ),
         ),
-        Container(
-          color: hexButtonCalculateBMIBackgroundColour,
-          margin: const EdgeInsets.only(top: 10.0),
-          width: double.infinity,
-          height: buttonCalculateBMIHeight,
-          child: TextButton(
-            onPressed: () {},
-            child: const Text(
-              'CALCULATE',
-              style: numberTextStyle,
-            ),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ResultsPage(),
+              ),
+            );
+          },
+          child: Container(
+            color: hexButtonCalculateBMIBackgroundColour,
+            margin: const EdgeInsets.only(top: 10.0),
+            width: double.infinity,
+            height: buttonCalculateBMIHeight,
+            child: const Text('CALCULATE'),
           ),
         ),
       ]),
