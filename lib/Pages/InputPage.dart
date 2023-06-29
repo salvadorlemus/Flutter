@@ -3,10 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'ReusableCard.dart';
-import 'CustomIconContentWidget.dart';
-import 'Constants.dart';
-import 'RoundIconButton.dart';
+import '../CustomWidgets/BottomButton.dart';
+import '../CustomWidgets/ReusableCard.dart';
+import '../CustomWidgets/CustomIconContentWidget.dart';
+import '../Constants.dart';
+import '../CustomWidgets/RoundIconButton.dart';
 
 enum Gender { MALE, FEMALE, UNKNOW }
 
@@ -207,18 +208,11 @@ class _InputPageState extends State<InputPage> {
             ],
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, '/results');
-          },
-          child: Container(
-            color: hexButtonCalculateBMIBackgroundColour,
-            margin: const EdgeInsets.only(top: 10.0),
-            width: double.infinity,
-            height: buttonCalculateBMIHeight,
-            child: const Text('CALCULATE'),
-          ),
-        ),
+        BottomButton(
+            label: 'CALCULATE',
+            onPressed: () {
+              Navigator.pushNamed(context, '/results');
+            }),
       ]),
     );
   }
