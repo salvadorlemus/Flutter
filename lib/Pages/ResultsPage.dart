@@ -35,7 +35,7 @@ class ResultsPage extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 5,
+            flex: 6,
             child: ReusableCard(
               colour: hexCardBackgroundActiveColour,
               cardChild: Column(
