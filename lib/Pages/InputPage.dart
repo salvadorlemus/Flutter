@@ -1,5 +1,7 @@
 // Purpose: This file contains the code for the input page of the BMI calculator.
 
+import 'package:base/CalculatorBrain.dart';
+import 'package:base/Pages/ResultsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -8,6 +10,7 @@ import '../CustomWidgets/ReusableCard.dart';
 import '../CustomWidgets/CustomIconContentWidget.dart';
 import '../Constants.dart';
 import '../CustomWidgets/RoundIconButton.dart';
+import '../CalculatorBrain.dart';
 
 enum Gender { MALE, FEMALE, UNKNOW }
 
@@ -211,7 +214,18 @@ class _InputPageState extends State<InputPage> {
         BottomButton(
             label: 'CALCULATE',
             onPressed: () {
-              Navigator.pushNamed(context, '/results');
+              CalculatorBrain calc =
+                  CalculatorBrain(height: height, weight: weight);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultsPage(
+                    bmiResult: calc.CalculateBMI(),
+                    resultText: calc.GetResult(),
+                    interpretation: calc.GetInterpretation(),
+                  ),
+                ),
+              );
             }),
       ]),
     );
