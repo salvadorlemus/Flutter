@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
+import '../screens/loading_screen.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.blueGrey[900],
-        appBar: AppBar(
-          title: Text('I Am Rich'),
-          backgroundColor: Colors.blueGrey[900],
-        ),
-        body: Center(
-          child: Image(
-            image:
-                NetworkImage('https://www.w3schools.com/w3css/img_lights.jpg'),
-          ),
-        ),
-      ),
-    ),
-  );
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData.dark(),
+      home: LoadingScreen(),
+    );
+  }
 }
