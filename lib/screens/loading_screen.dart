@@ -1,3 +1,5 @@
+// https://medium.flutterdevs.com/explore-widget-lifecycle-in-flutter-e36031c697d0
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -45,19 +47,23 @@ class _LoadingScreenState extends State<LoadingScreen> {
         desiredAccuracy: LocationAccuracy.low);
   }
 
+  // This state runs only once when the app is loaded
+  @override
+  void initState() {
+    super.initState();
+    _determinePosition().then((value) => print(value));
+  }
+
+  // This state runs every time the app is re-loaded
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: TextButton(
-          onPressed: () async {
-            //Get the current location
-            var currentPosition = await _determinePosition();
-            print(currentPosition);
-          },
-          child: Text('Get Location'),
-        ),
-      ),
-    );
+    return Scaffold();
+  }
+
+  // This state runs every time the [app / page / screen] is closed
+  @override
+  void deactivate() {
+    // TODO: implement deactivate
+    super.deactivate();
   }
 }
