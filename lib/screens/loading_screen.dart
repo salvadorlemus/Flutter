@@ -1,12 +1,9 @@
 // https://medium.flutterdevs.com/explore-widget-lifecycle-in-flutter-e36031c697d0
 
 import 'package:flutter/material.dart';
-import '../services/location.dart';
-import '../services/networking.dart';
 import '../screens/location_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
-const apiKey = 'YOUR_API_KEY_HERE';
+import '../services/weather.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -14,8 +11,6 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  Location location = Location();
-
   // This state runs only once when the app is loaded
   @override
   void initState() {
@@ -44,15 +39,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getLocationData() async {
-    await location.getCurrentPosition();
-    // print('${location.latitude}');
-    // print('${location.longitude}');
-
-    NetworkHelper networkHelper = NetworkHelper(
-        url:
-            'https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&appid=$apiKey&units=metric');
-
-    var weatherData = await networkHelper.getData();
+    // Get the weather data from the API
+    var weatherModel = WeatherModel();
+    var weatherData = await weatherModel.getLocationWeather();
 
     Navigator.push(
       context,
