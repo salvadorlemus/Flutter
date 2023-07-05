@@ -80,13 +80,21 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      // typedCityName comes from the CityScreen when we press the
+                      // Get Weather button after we type in a city name and pop
+                      // the CityScreen off the stack, passing the city name as an argument
+                      var typedCityName = await Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) {
                           return CityScreen();
                         }),
                       );
+                      if (typedCityName != null) {
+                        var weatherData =
+                            await weatherModel.getCityWeather(typedCityName);
+                        updateUI(weatherData);
+                      }
                     },
                     child: Icon(
                       Icons.location_city,
