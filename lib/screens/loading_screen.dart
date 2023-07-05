@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import '../services/location.dart';
 import '../services/networking.dart';
+import '../screens/location_screen.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 const apiKey = 'YOUR_API_KEY_HERE';
 
@@ -26,7 +28,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
   // This state runs every time the app is re-loaded
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold(
+      body: Center(
+        child: SpinKitDoubleBounce(
+          color: Colors.white,
+          size: 100.0,
+        ),
+      ),
+    );
   }
 
   // This state runs every time the [app / page / screen] is closed
@@ -49,5 +58,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
             'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey');
 
     var weatherData = await networkHelper.getData();
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return LocationScreen();
+        },
+      ),
+    );
   }
 }
