@@ -2,11 +2,35 @@ import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
 
 class LocationScreen extends StatefulWidget {
+  final locationWeather;
+
+  LocationScreen({super.key, required this.locationWeather});
+
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  int temperature = 0;
+  int condition = 0;
+  String cityName = '';
+
+  // I can access the locationWeather property in my LocationScreen class thanks to
+  // the widget object that is a reference to the stateful widget that is currently
+  // in use.
+  @override
+  void initState() {
+    super.initState();
+    updateUI(widget.locationWeather);
+  }
+
+  // Update the UI with the weatherData from the Loading screen API call
+  void updateUI(dynamic weatherData) {
+    temperature = weatherData['main']['temp'].toInt();
+    condition = weatherData['weather'][0]['id'];
+    cityName = weatherData['name'];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +73,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      '32°',
+                      '$temperature°',
                       style: kTempTextStyle,
                     ),
                     Text(
