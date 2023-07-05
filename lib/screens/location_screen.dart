@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utilities/constants.dart';
+import '../services/weather.dart';
 
 class LocationScreen extends StatefulWidget {
   final locationWeather;
@@ -11,9 +12,11 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  WeatherModel weatherModel = WeatherModel();
   int temperature = 0;
-  int condition = 0;
+  String weatherIcon = '';
   String cityName = '';
+  String weatherMessage = '';
 
   // I can access the locationWeather property in my LocationScreen class thanks to
   // the widget object that is a reference to the stateful widget that is currently
@@ -26,9 +29,14 @@ class _LocationScreenState extends State<LocationScreen> {
 
   // Update the UI with the weatherData from the Loading screen API call
   void updateUI(dynamic weatherData) {
-    temperature = weatherData['main']['temp'].toInt();
-    condition = weatherData['weather'][0]['id'];
-    cityName = weatherData['name'];
+    setState(() {
+      double temp = weatherData['main']['temp'].toInt();
+      temperature = temp.toInt();
+      weatherMessage = weatherModel.getMessage(temperature);
+      var condition = weatherData['weather'][0]['id'];
+      weatherIcon = weatherModel.getWeatherIcon(condition);
+      cityName = weatherData['name'];
+    });
   }
 
   @override
@@ -77,7 +85,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       style: kTempTextStyle,
                     ),
                     Text(
-                      '☀️',
+                      weatherIcon,
                       style: kConditionTextStyle,
                     ),
                   ],
@@ -86,7 +94,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "It's 🍦 time in San Francisco!",
+                  '$weatherMessage in $cityName',
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
