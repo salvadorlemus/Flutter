@@ -30,9 +30,9 @@ Card CoinCard(
                   color: Colors.white,
                 ),
               )
-            : const SpinKitDancingSquare(
+            : const SpinKitCubeGrid(
                 color: Colors.white,
-                size: 25.0,
+                size: 20.0,
               ),
       ),
     ),
