@@ -1,16 +1,9 @@
 # base
 
-Container for various branches of fluter projects.
+Simple app to trace the price of 3 virtual coins, BTC, ETH and LTC
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+You can select from varoius currencies to get the price of the 3 coins in that corrency.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+You should get and insert your API key from https://docs.coinapi.io/#get-specific-rate
