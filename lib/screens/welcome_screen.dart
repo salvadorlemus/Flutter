@@ -40,6 +40,19 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     // Start the animation
     controller.forward();
 
+    // Add a status listener to the controller
+    controller.addStatusListener((status) {
+      // Forward animation has been completed
+      if (status == AnimationStatus.completed) {
+        // Reverse the animation
+        controller.reverse(from: 1.0);
+        // Reverse animation has been completed
+      } else if (status == AnimationStatus.dismissed) {
+        // Start the animation
+        controller.forward();
+      }
+    });
+
     // Reverse the animation
     // controller.reverse(from: 1.0);
 
