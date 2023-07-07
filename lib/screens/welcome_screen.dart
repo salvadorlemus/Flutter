@@ -35,39 +35,24 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       //upperBound: 100.0,
     );
 
-    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
-
     // Start the animation
     controller.forward();
 
-    // Add a status listener to the controller
-    controller.addStatusListener((status) {
-      // Forward animation has been completed
-      if (status == AnimationStatus.completed) {
-        // Reverse the animation
-        controller.reverse(from: 1.0);
-        // Reverse animation has been completed
-      } else if (status == AnimationStatus.dismissed) {
-        // Start the animation
-        controller.forward();
-      }
-    });
-
-    // Reverse the animation
-    // controller.reverse(from: 1.0);
+    animation = ColorTween(begin: Colors.blueGrey, end: Colors.white)
+        .animate(controller);
 
     controller.addListener(() {
       // We just need to call setState() here so Flutter knows to rebuild the widget with
       // the new changes.
       setState(() {});
-      print(animation.value);
+      print(controller.value);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: animation.value,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -80,7 +65,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   tag: 'logo',
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: animation.value * 80,
+                    height: 60.0,
                   ),
                 ),
                 Text(
