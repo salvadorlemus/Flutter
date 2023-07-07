@@ -39,6 +39,10 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
     // Start the animation
     controller.forward();
+
+    // Reverse the animation
+    // controller.reverse(from: 1.0);
+
     controller.addListener(() {
       // We just need to call setState() here so Flutter knows to rebuild the widget with
       // the new changes.
