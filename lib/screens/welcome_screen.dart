@@ -14,7 +14,13 @@ class WelcomeScreen extends StatefulWidget {
 // SINGLE TickerProvider.
 class _WelcomeScreenState extends State<WelcomeScreen>
     with SingleTickerProviderStateMixin {
+  // AnimationController is a special type of Animation object that generates a new value
+  // whenever it is asked to do so by the TickerProvider.
   late AnimationController controller;
+
+  // Animation is a special type of object that generates a new value whenever the
+  // AnimationController ticks.
+  late Animation animation;
 
   @override
   void initState() {
@@ -23,8 +29,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
-      upperBound: 100.0,
+
+      // Using animations requires that the upper and lower bounds of the animation are
+      // between [0-1]
+      //upperBound: 100.0,
     );
+
+    animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
 
     // Start the animation
     controller.forward();
@@ -32,7 +43,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       // We just need to call setState() here so Flutter knows to rebuild the widget with
       // the new changes.
       setState(() {});
-      print(controller.value);
+      print(animation.value);
     });
   }
 
@@ -52,7 +63,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   tag: 'logo',
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: controller.value,
+                    height: animation.value * 80,
                   ),
                 ),
                 Text(
