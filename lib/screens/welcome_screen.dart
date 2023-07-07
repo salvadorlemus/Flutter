@@ -138,4 +138,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       ),
     );
   }
+
+  // The dispose() method is called when the State object is removed, which is permanent.
+  // This callback is where you should unsubscribe and cancel all animations, streams,
+  // etc.
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 }
