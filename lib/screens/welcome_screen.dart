@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import '../firebase_options.dart';
 import '../screens/login_screen.dart';
 import '../screens/registration_screen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+
+import '../UI/PaddingButton.dart';
+
+import 'package:firebase_core/firebase_core.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static String routeName = 'welcome_screen';
@@ -22,10 +27,20 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   // AnimationController ticks.
   late Animation animation;
 
+  // Initialize Firebase services
+  Future<void> initializeFirebase() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    initializeFirebase();
+
     controller = AnimationController(
       duration: const Duration(seconds: 1),
       vsync: this,
@@ -45,7 +60,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       // We just need to call setState() here so Flutter knows to rebuild the widget with
       // the new changes.
       setState(() {});
-      print(controller.value);
     });
   }
 
@@ -78,46 +92,24 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 48.0,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                elevation: 5.0,
-                color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, LoginScreen.routeName);
-                    //Go to login screen.
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Log In',
-                  ),
-                ),
-              ),
+            PaddingButton(
+              text: 'Log In',
+              color: Colors.lightBlueAccent,
+              onPressed: () {
+                Navigator.pushNamed(context, LoginScreen.routeName);
+                //Go to login screen.
+              },
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                elevation: 5.0,
-                child: MaterialButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, RegistrationScreen.routeName);
-                    //Go to registration screen.
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Register',
-                  ),
-                ),
-              ),
+            PaddingButton(
+              text: 'Register',
+              color: Colors.blueAccent,
+              onPressed: () {
+                Navigator.pushNamed(context, RegistrationScreen.routeName);
+                //Go to registration screen.
+              },
             ),
           ],
         ),
