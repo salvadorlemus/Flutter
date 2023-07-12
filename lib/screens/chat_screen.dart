@@ -90,6 +90,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       _firestore.collection('messages').add({
                         'text': messageText,
                         'sender': loggedInUser.email,
+                        // Add the date to the message based on the server time
+                        'date': FieldValue.serverTimestamp(),
                       });
 
                       // Clear the text field

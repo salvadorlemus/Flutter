@@ -23,7 +23,9 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: firestore.collection('messages').snapshots(),
+      // Get the messages from the firestore database using streams and order
+      // them by date, date field must exist in the documents as a field
+      stream: firestore.collection('messages').orderBy('date').snapshots(),
       builder: (context, snapshot) {
         // Check if the snapshot has data
         if (!snapshot.hasData) {
@@ -60,13 +62,16 @@ class MessagesStream extends StatelessWidget {
 
         // Return a Column widget with the list of Text widgets
         return Expanded(
-          child: ListView(
-            reverse: true,
-            padding: EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 20.0,
+          // Wrap the ListView in a Scrollbar widget to show a scrollbar
+          child: Scrollbar(
+            child: ListView(
+              reverse: true,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+                vertical: 20.0,
+              ),
+              children: messageBubbles,
             ),
-            children: messageBubbles,
           ),
         );
       },
