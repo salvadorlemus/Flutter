@@ -32,11 +32,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Hero(
-                tag: 'logo',
-                child: Container(
-                  height: 200.0,
-                  child: Image.asset('images/logo.png'),
+              // Wrap into a flexible widget to avoid overflow on different
+              // screen sizes.
+              Flexible(
+                child: Hero(
+                  tag: 'logo',
+                  child: Container(
+                    height: 200.0,
+                    child: Image.asset('images/logo.png'),
+                  ),
                 ),
               ),
               SizedBox(

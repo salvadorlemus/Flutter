@@ -24,7 +24,7 @@ class _ChatScreenState extends State<ChatScreen> {
   String messageText = '';
 
   // Get the current user from FirebaseAuth
-  void GetCurrentUser() {
+  void getCurrentUser() {
     try {
       final user = _auth.currentUser;
       if (user != null) {
@@ -39,7 +39,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    GetCurrentUser();
+    getCurrentUser();
   }
 
   @override
@@ -64,7 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            MessagesStream(),
+            MessagesStream(user: loggedInUser, firestore: _firestore),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(

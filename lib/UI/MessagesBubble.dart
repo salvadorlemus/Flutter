@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 
 class MessagesBubble extends StatelessWidget {
+  const MessagesBubble(
+      {super.key,
+      required this.messageText,
+      required this.messageSender,
+      required this.isMe});
+
   final String messageText;
   final String messageSender;
-
-  const MessagesBubble(
-      {super.key, required this.messageText, required this.messageSender});
+  final bool isMe;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +18,8 @@ class MessagesBubble extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment:
+            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Text(
             messageSender,
@@ -25,17 +30,27 @@ class MessagesBubble extends StatelessWidget {
           ),
           Material(
             elevation: 5.0,
-            borderRadius: BorderRadius.circular(30.0),
-            color: Colors.lightBlueAccent,
+            borderRadius: isMe
+                ? const BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    bottomLeft: Radius.circular(30.0),
+                    bottomRight: Radius.circular(30.0),
+                  )
+                : const BorderRadius.only(
+                    topRight: Radius.circular(30.0),
+                    bottomLeft: Radius.circular(30.0),
+                    bottomRight: Radius.circular(30.0),
+                  ),
+            color: isMe ? Colors.lightBlueAccent : Colors.white70,
             child: Padding(
               // The padding here gives text some space from the edge of the bubble
               padding:
                   const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Text(
                 messageText,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 15.0,
-                  color: Colors.white,
+                  color: isMe ? Colors.white : Colors.black54,
                 ),
               ),
             ),

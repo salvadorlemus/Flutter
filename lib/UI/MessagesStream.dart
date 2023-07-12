@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:base/UI/MessagesBubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MessagesStream extends StatelessWidget {
-  MessagesStream({super.key});
+  MessagesStream(
+      {super.key, required User user, required FirebaseFirestore firestore});
 
-  // Create an instance of firestore
-  final _firestore = FirebaseFirestore.instance;
+  // Reference to my local user
+  User user = FirebaseAuth.instance.currentUser!;
+  final firestore = FirebaseFirestore.instance;
 
   // Get the messages from the firestore database using streams
   // void getMessagesStream() async {
-  //   await for (var snapshot in _firestore.collection('messages').snapshots()) {
+  //   await for (var snapshot in firestore.collection('messages').snapshots()) {
   //     for (var message in snapshot.docs) {
   //       print(message.data());
   //     }
@@ -20,7 +23,7 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collection('messages').snapshots(),
+      stream: firestore.collection('messages').snapshots(),
       builder: (context, snapshot) {
         // Check if the snapshot has data
         if (!snapshot.hasData) {
@@ -40,8 +43,17 @@ class MessagesStream extends StatelessWidget {
           final messageText = message['text'];
           final messageSender = message['sender'];
 
+          // Get the current user
+          final currentUser = user.email;
+
+          if (messageSender == currentUser) {
+            // The message is from the logged in user
+          }
+
           final messageBubble = MessagesBubble(
-              messageText: messageText, messageSender: messageSender);
+              messageText: messageText,
+              messageSender: messageSender,
+              isMe: currentUser == messageSender);
 
           messageBubbles.add(messageBubble);
         }
@@ -49,6 +61,7 @@ class MessagesStream extends StatelessWidget {
         // Return a Column widget with the list of Text widgets
         return Expanded(
           child: ListView(
+            reverse: true,
             padding: EdgeInsets.symmetric(
               horizontal: 10.0,
               vertical: 20.0,
