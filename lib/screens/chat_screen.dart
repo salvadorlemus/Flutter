@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '/constants.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '/constants.dart';
+import '/UI/MessagesStream.dart';
 
 class ChatScreen extends StatefulWidget {
   static String routeName = 'chat_screen';
@@ -12,6 +12,9 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  // Text editing controller
+  final messageTextController = TextEditingController();
+
   // Create an instance of firestore
   final _firestore = FirebaseFirestore.instance;
 
@@ -29,24 +32,6 @@ class _ChatScreenState extends State<ChatScreen> {
       }
     } catch (e) {
       print(e);
-    }
-  }
-
-  // Get the messages from the firestore database
-  // void getMessages() {
-  //   _firestore.collection('messages').snapshots().listen((event) {
-  //     for (var message in event.docs) {
-  //       print(message.data());
-  //     }
-  //   });
-  // }
-
-  // Get the messages from the firestore database using streams
-  void getMessagesStream() async {
-    await for (var snapshot in _firestore.collection('messages').snapshots()) {
-      for (var message in snapshot.docs) {
-        print(message.data());
-      }
     }
   }
 
@@ -79,38 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            StreamBuilder<QuerySnapshot>(
-              stream: _firestore.collection('messages').snapshots(),
-              builder: (context, snapshot) {
-                // Check if the snapshot has data
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: Colors.lightBlueAccent,
-                    ),
-                  );
-                }
-
-                // Get the data from the snapshot
-                final messages = snapshot.data!.docs.reversed;
-
-                // Create a list of Text widgets
-                List<Text> messageWidgets = [];
-                for (var message in messages) {
-                  final messageText = message['text'];
-                  final messageSender = message['sender'];
-
-                  final messageWidget =
-                      Text('$messageText from $messageSender');
-                  messageWidgets.add(messageWidget);
-                }
-
-                // Return a Column widget with the list of Text widgets
-                return Column(
-                  children: messageWidgets,
-                );
-              },
-            ),
+            MessagesStream(),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
@@ -118,6 +72,10 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      // let the text area grow up to 5 lines of text
+                      minLines: 1,
+                      maxLines: 5,
+                      controller: messageTextController,
                       onChanged: (value) {
                         messageText = value;
                         //Do something with the user input.
@@ -128,17 +86,18 @@ class _ChatScreenState extends State<ChatScreen> {
                   TextButton(
                     onPressed: () {
                       //Implement send functionality.
-                      // Clear the text field
                       // Add the message to the firestore database
-                      // Clear the messageText variable
                       _firestore.collection('messages').add({
                         'text': messageText,
                         'sender': loggedInUser.email,
                       });
 
+                      // Clear the text field
+                      messageTextController.clear();
+                      // Clear the messageText variable
                       messageText = '';
                     },
-                    child: Text(
+                    child: const Text(
                       'Send',
                       style: kSendButtonTextStyle,
                     ),
