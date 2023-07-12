@@ -1,24 +1,17 @@
 import 'package:flutter/material.dart';
+import '../screens/taskScreen.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.blueGrey[900],
-        appBar: AppBar(
-          title: Text('Mase app'),
-          backgroundColor: Colors.blueGrey[900],
-        ),
-        body: Center(
-          child: Image(
-            image: NetworkImage(
-              'https://storage.googleapis.com/cms-storage-bucket/d406c736e7c4c57f5f61.png',
-            ),
-          ),
-        ),
-      ),
-    ),
-  );
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: TaskScreen(),
+    );
+  }
 }
 
 // TODO Change app name in the next files :
