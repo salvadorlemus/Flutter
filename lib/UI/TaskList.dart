@@ -8,9 +8,19 @@ class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      physics: const BouncingScrollPhysics(),
       children: [
         TaskElement(taskName: 'This is a task 1'),
         TaskElement(taskName: 'This is a task 2'),
+        TaskElement(taskName: 'This is a task 3'),
+        TaskElement(taskName: 'This is a task 3'),
+        TaskElement(taskName: 'This is a task 3'),
+        TaskElement(taskName: 'This is a task 3'),
+        TaskElement(taskName: 'This is a task 3'),
+        TaskElement(taskName: 'This is a task 3'),
+        TaskElement(taskName: 'This is a task 3'),
+        TaskElement(taskName: 'This is a task 3'),
+        TaskElement(taskName: 'This is a task 3'),
         TaskElement(taskName: 'This is a task 3'),
       ],
     );
