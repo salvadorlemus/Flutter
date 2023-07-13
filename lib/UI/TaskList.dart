@@ -1,47 +1,56 @@
+import 'package:base/UI/taskCheckBox.dart';
 import 'package:flutter/material.dart';
 
 class TaskList extends StatelessWidget {
-  const TaskList({
-    super.key,
-  });
-
   @override
   Widget build(BuildContext context) {
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: [
-        TaskElement(taskName: 'This is a task 1'),
-        TaskElement(taskName: 'This is a task 2'),
-        TaskElement(taskName: 'This is a task 3'),
-        TaskElement(taskName: 'This is a task 3'),
-        TaskElement(taskName: 'This is a task 3'),
-        TaskElement(taskName: 'This is a task 3'),
-        TaskElement(taskName: 'This is a task 3'),
-        TaskElement(taskName: 'This is a task 3'),
-        TaskElement(taskName: 'This is a task 3'),
-        TaskElement(taskName: 'This is a task 3'),
-        TaskElement(taskName: 'This is a task 3'),
-        TaskElement(taskName: 'This is a task 3'),
+        TaskElement(),
+        TaskElement(),
+        TaskElement(),
+        TaskElement(),
+        TaskElement(),
+        TaskElement(),
+        TaskElement(),
+        TaskElement(),
+        TaskElement(),
+        TaskElement(),
+        TaskElement(),
+        TaskElement(),
       ],
     );
   }
 }
 
-class TaskElement extends StatelessWidget {
-  TaskElement({
-    super.key,
-    required taskName,
-  });
+class TaskElement extends StatefulWidget {
+  @override
+  _TaskElementState createState() => _TaskElementState();
+}
 
+class _TaskElementState extends State<TaskElement> {
+  bool isChecked = false;
   String taskName = 'Task Name';
+
+  // Callback used to update the checkbox state
+  void checkboxCallback(bool checkboxState) {
+    setState(() {
+      isChecked = checkboxState;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(taskName),
-      trailing: Checkbox(
-        value: false,
-        onChanged: (value) {},
+      title: Text(
+        taskName,
+        style: TextStyle(
+            decoration: isChecked ? TextDecoration.lineThrough : null),
+      ),
+      trailing: TaskCheckbox(
+        isChecked: isChecked,
+        toggleCheckboxState: checkboxCallback,
       ),
     );
   }
