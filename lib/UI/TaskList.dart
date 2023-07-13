@@ -1,57 +1,36 @@
-import 'package:base/UI/taskCheckBox.dart';
+import 'package:base/Models/task.dart';
 import 'package:flutter/material.dart';
+import 'package:base/UI/taskTile.dart';
 
-class TaskList extends StatelessWidget {
+class TaskList extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return ListView(
-      physics: const BouncingScrollPhysics(),
-      children: [
-        TaskElement(),
-        TaskElement(),
-        TaskElement(),
-        TaskElement(),
-        TaskElement(),
-        TaskElement(),
-        TaskElement(),
-        TaskElement(),
-        TaskElement(),
-        TaskElement(),
-        TaskElement(),
-        TaskElement(),
-      ],
-    );
-  }
+  _TaskListState createState() => _TaskListState();
 }
 
-class TaskElement extends StatefulWidget {
-  @override
-  _TaskElementState createState() => _TaskElementState();
-}
-
-class _TaskElementState extends State<TaskElement> {
-  bool isChecked = false;
-  String taskName = 'Task Name';
-
-  // Callback used to update the checkbox state
-  void checkboxCallback(bool checkboxState) {
-    setState(() {
-      isChecked = checkboxState;
-    });
-  }
+class _TaskListState extends State<TaskList> {
+  List<Task> taskList = [
+    Task(name: 'Task 1'),
+    Task(name: 'Task 2'),
+    Task(name: 'Task 3'),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        taskName,
-        style: TextStyle(
-            decoration: isChecked ? TextDecoration.lineThrough : null),
-      ),
-      trailing: TaskCheckbox(
-        isChecked: isChecked,
-        toggleCheckboxState: checkboxCallback,
-      ),
+    // A list builder is used to build a list of widgets from a list of data
+    // but just the ones that are on screen and not all of them at once
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return TaskTile(
+          taskName: taskList[index].name,
+          isChecked: taskList[index].isDone,
+          checkboxCallback: () {
+            setState(() {
+              taskList[index].toggleDone();
+            });
+          },
+        );
+      },
+      itemCount: taskList.length,
     );
   }
 }

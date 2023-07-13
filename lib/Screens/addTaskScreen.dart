@@ -35,7 +35,9 @@ class AddTaskScreen extends StatelessWidget {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.lightBlueAccent,
               ),
-              onPressed: () {},
+              onPressed: () {
+                // Add task to the list
+              },
               child: const Text('Add', style: TextStyle(color: Colors.white)),
             ),
           ],
