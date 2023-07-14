@@ -29,7 +29,29 @@ class TaskList extends StatelessWidget {
               longPressCallback: () {
                 // Using the Provider.of method to access the taskList in the TaskData class
                 // to delete the task
-                taskData.deleteTask(taskData.taskList[index]);
+                // taskData.deleteTask(taskData.taskList[index]);
+
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Delete Task'),
+                    content: const Text(
+                        'Are you sure you want to delete this task?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text('No'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          taskData.deleteTask(taskData.taskList[index]);
+                        },
+                        child: const Text('Yes'),
+                      ),
+                    ],
+                  ),
+                );
               },
             );
           },
