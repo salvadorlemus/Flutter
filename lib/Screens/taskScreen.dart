@@ -5,18 +5,6 @@ import 'package:base/UI/TaskList.dart';
 import 'package:provider/provider.dart';
 
 class TaskScreen extends StatelessWidget {
-  void addTaskToList(String taskName) {
-    // print('addTaskToList $taskName');
-    // Using the Provider.of method to access the taskList in the TaskData class
-    // And add a new task to the list
-    // setState(() {
-    //   Provider.of<TaskData>(context).taskList.add(Task(name: taskName));
-    // });
-
-    // Hide the bottom sheet
-    // Navigator.pop(context);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +87,7 @@ class TaskScreen extends StatelessWidget {
             builder: (context) => SingleChildScrollView(
               padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: AddTaskScreen(addTaskCallback: addTaskToList),
+              child: AddTaskScreen(),
             ),
           );
         },

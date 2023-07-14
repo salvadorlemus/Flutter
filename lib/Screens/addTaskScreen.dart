@@ -1,10 +1,8 @@
+import 'package:base/Models/taskData.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({super.key, required this.addTaskCallback});
-
-  final Function addTaskCallback;
-
   @override
   Widget build(BuildContext context) {
     // Added late keyword to taskName variable so it doesn't complain about a
@@ -44,7 +42,10 @@ class AddTaskScreen extends StatelessWidget {
               style: TextButton.styleFrom(
                 backgroundColor: Colors.lightBlueAccent,
               ),
-              onPressed: () => addTaskCallback(taskName),
+              onPressed: () {
+                Provider.of<TaskData>(context, listen: false).addTask(taskName);
+                Navigator.pop(context);
+              },
               child: const Text('Add', style: TextStyle(color: Colors.white)),
             ),
           ],
