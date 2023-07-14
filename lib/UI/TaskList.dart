@@ -26,6 +26,11 @@ class TaskList extends StatelessWidget {
                 // to updat ethe task is done status
                 taskData.updateTask(taskData.taskList[index]);
               },
+              longPressCallback: () {
+                // Using the Provider.of method to access the taskList in the TaskData class
+                // to delete the task
+                taskData.deleteTask(taskData.taskList[index]);
+              },
             );
           },
           itemCount: taskData.taskList.length,
