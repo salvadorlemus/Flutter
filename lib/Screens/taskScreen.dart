@@ -1,26 +1,20 @@
-import 'package:base/Models/task.dart';
+import 'package:base/Models/taskData.dart';
 import 'package:base/Screens/addTaskScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:base/UI/TaskList.dart';
+import 'package:provider/provider.dart';
 
-class TaskScreen extends StatefulWidget {
-  const TaskScreen({super.key});
-
-  @override
-  State<TaskScreen> createState() => _TaskScreenState();
-}
-
-class _TaskScreenState extends State<TaskScreen> {
-  List<Task> taskList = [];
-
+class TaskScreen extends StatelessWidget {
   void addTaskToList(String taskName) {
     // print('addTaskToList $taskName');
-    setState(() {
-      taskList.add(Task(name: taskName));
-    });
+    // Using the Provider.of method to access the taskList in the TaskData class
+    // And add a new task to the list
+    // setState(() {
+    //   Provider.of<TaskData>(context).taskList.add(Task(name: taskName));
+    // });
 
     // Hide the bottom sheet
-    Navigator.pop(context);
+    // Navigator.pop(context);
   }
 
   @override
@@ -55,7 +49,9 @@ class _TaskScreenState extends State<TaskScreen> {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  '${taskList.length} Tasks',
+                  // Using the Provider.of method to access the taskList in the
+                  // TaskData class
+                  '${Provider.of<TaskData>(context).taskList.length} Tasks',
                   style: const TextStyle(
                     fontSize: 18.0,
                     color: Colors.white,
@@ -76,7 +72,9 @@ class _TaskScreenState extends State<TaskScreen> {
                 ),
               ),
               child: Scrollbar(
-                child: TaskList(taskList: taskList),
+                // Using the Provider.of method to access the taskList and pass
+                // it to the TaskList widget
+                child: TaskList(),
               ),
             ),
           )

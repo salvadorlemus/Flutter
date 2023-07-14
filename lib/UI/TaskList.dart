@@ -1,18 +1,9 @@
-import 'package:base/Models/task.dart';
 import 'package:flutter/material.dart';
 import 'package:base/UI/taskTile.dart';
+import 'package:base/Models/taskData.dart';
+import 'package:provider/provider.dart';
 
-class TaskList extends StatefulWidget {
-  const TaskList({super.key, required this.taskList});
-
-  // Reference so we can use a task list in my constructor
-  final List<Task> taskList;
-
-  @override
-  _TaskListState createState() => _TaskListState();
-}
-
-class _TaskListState extends State<TaskList> {
+class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // A list builder is used to build a list of widgets from a list of data
@@ -20,19 +11,17 @@ class _TaskListState extends State<TaskList> {
     return ListView.builder(
       itemBuilder: (context, index) {
         return TaskTile(
-          // In order to access the taskList in the TaskTile widget we need to
-          // use the widget. prefix so it knows we are referring to the Widget that
-          // this class is extending
-          taskName: widget.taskList[index].name,
-          isChecked: widget.taskList[index].isDone,
+          // Using the Provider.of method to access the taskList in the TaskData class
+          taskName: Provider.of<TaskData>(context).taskList[index].name,
+          isChecked: Provider.of<TaskData>(context).taskList[index].isDone,
           checkboxCallback: () {
-            setState(() {
-              widget.taskList[index].toggleDone();
-            });
+            // setState(() {
+            //   Provider.of<TaskData>(context).taskList[index].toggleDone();
+            // });
           },
         );
       },
-      itemCount: widget.taskList.length,
+      itemCount: Provider.of<TaskData>(context).taskList.length,
     );
   }
 }
