@@ -1,11 +1,27 @@
+import 'package:base/Models/task.dart';
 import 'package:base/Screens/addTaskScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:base/UI/TaskList.dart';
 
-class TaskScreen extends StatelessWidget {
+class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
 
-  final int taskCounter = 0;
+  @override
+  State<TaskScreen> createState() => _TaskScreenState();
+}
+
+class _TaskScreenState extends State<TaskScreen> {
+  List<Task> taskList = [];
+
+  void addTaskToList(String taskName) {
+    // print('addTaskToList $taskName');
+    setState(() {
+      taskList.add(Task(name: taskName));
+    });
+
+    // Hide the bottom sheet
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +55,7 @@ class TaskScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  '$taskCounter Tasks',
+                  '${taskList.length} Tasks',
                   style: const TextStyle(
                     fontSize: 18.0,
                     color: Colors.white,
@@ -60,7 +76,7 @@ class TaskScreen extends StatelessWidget {
                 ),
               ),
               child: Scrollbar(
-                child: TaskList(),
+                child: TaskList(taskList: taskList),
               ),
             ),
           )
@@ -85,7 +101,7 @@ class TaskScreen extends StatelessWidget {
             builder: (context) => SingleChildScrollView(
               padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: AddTaskScreen(),
+              child: AddTaskScreen(addTaskCallback: addTaskToList),
             ),
           );
         },

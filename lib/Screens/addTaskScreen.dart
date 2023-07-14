@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 
 class AddTaskScreen extends StatelessWidget {
+  const AddTaskScreen({super.key, required this.addTaskCallback});
+
+  final Function addTaskCallback;
+
   @override
   Widget build(BuildContext context) {
+    // Added late keyword to taskName variable so it doesn't complain about a
+    // null value
+    late String taskName;
+
     return Container(
       color: const Color(0xff757575),
       child: Container(
@@ -18,7 +26,7 @@ class AddTaskScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               'Add Task',
               style: TextStyle(
                 color: Colors.lightBlueAccent,
@@ -29,15 +37,14 @@ class AddTaskScreen extends StatelessWidget {
             TextField(
               autofocus: true,
               textAlign: TextAlign.center,
+              onChanged: (value) => taskName = value,
             ),
             const SizedBox(height: 10.0),
             TextButton(
               style: TextButton.styleFrom(
                 backgroundColor: Colors.lightBlueAccent,
               ),
-              onPressed: () {
-                // Add task to the list
-              },
+              onPressed: () => addTaskCallback(taskName),
               child: const Text('Add', style: TextStyle(color: Colors.white)),
             ),
           ],
